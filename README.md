@@ -8,4 +8,7 @@ I am not able to protect the main branch as it requires us to switch to the paid
 Branch naming convention
  - branch should follow the name - user/<firstname>/issue_number-description.e.g. "user/mario/01-gpio"
 
+# LPC SDK 
+- LPC MCUXpresso SDK can be downloaded from [here](https://nxp.flexnetoperations.com/control/frse/download?element=3869458)https://nxp.flexnetoperations.com/control/frse/download?element=3869458
+
 
