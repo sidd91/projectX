@@ -35,7 +35,7 @@ public:
         void ConfigurePINSEL();
 };
 
-constexpr LabGPIO::LabGPIO(uint8_t port, uint8_t pin) : port_(port), pin_(pin)
+LabGPIO::LabGPIO(uint8_t port, uint8_t pin) : port_(port), pin_(pin)
 {
     ConfigurePINSEL();
 }
