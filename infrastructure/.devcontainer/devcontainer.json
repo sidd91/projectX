@@ -1,0 +1,17 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bazelbuild.vscode-bazel",
+        "bazelbuild.vscode-bazel",
+        "ms-vscode.cpptools"
+      ]
+    }
+  },
+  "forwardPorts": [
+    3000
+  ]
+}
