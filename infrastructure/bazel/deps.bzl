@@ -1,3 +1,3 @@
-load("//infrastructure/bazel/toolchains:toolchains.bzl", "toolchains")
+load("//third_party/toolchains:toolchains.bzl", "toolchains")
 def deps():
     toolchains()
