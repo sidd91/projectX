@@ -4,6 +4,8 @@ Names are hard and projectX name is dumb. At the time of creating this repo, the
 ### Branch naming convention
  - branch should follow the name - user/<firstname>/issue_number-description.e.g. "user/mario/01-gpio"
 
+
+
 ## Getting started
 
 ### Installation
@@ -41,3 +43,10 @@ We will use a docker approach to ensure that our setup remains platform agnostic
     ![](infrastructure/markdown_artifacts/open_folder_in_container.png)
 
     After this step, the container will build. If you start a terminal in vscode, then you will see the bash user as `root@xxxx`. You can now change your directory to the firmware directory by going to File-> Open Folder. 
+
+
+## First time setup
+- `chmod +x infrastructure/bazel/toolchains/arm-none-eabi/wrappers/*`
+
+## Examples
+`bazel build //firmware/example:hello_world --config=lpc1769-platform`
