@@ -145,7 +145,7 @@ def _impl(ctx):
         abi_libc_version = "unknown",
         tool_paths = tool_paths,
         cxx_builtin_include_directories = [
-            "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h",
+            "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h",
         ],
     )
 

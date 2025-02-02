@@ -31,6 +31,9 @@
 // CMSIS headers required for setting up SysTick Timer
 #include "LPC17xx.h"
 
+// #include <cr_section_macros.h>
+// #include <NXP/crp.h>
+
 // Variable to store CRP value in. Will be placed automatically
 // by the linker when "Enable Code Read Protect" selected.
 // See crp.h header for more information
@@ -47,9 +50,12 @@ void delay_ms(unsigned int ms)
 int main(void) {
 
  	SystemInit();
-	LPC_PINCON->PINSEL0 &= ~(2 << 0);
-	LPC_GPIO0->FIODIR = 0xffffffff;
-	LPC_GPIO0->FIOSET = 0xffffffff;
+		// Set P0_22 to 00 - GPIO
+	LPC_PINCON->PINSEL1	&= (~(3 << 12));
+	// Set GPIO - P0_22 - to be output
+	LPC_GPIO0->FIODIR |= (1 << 22);
+	// LPC_GPIO3->FIODIR = 0xffffffff;
+	// LPC_GPIO3->FIOSET = 0xffffffff;
 	//Add code for GPIO toggling here
 
     // Force the counter to be placed into memory
@@ -60,10 +66,10 @@ int main(void) {
         // "Dummy" NOP to allow source level single
         // stepping of tight while() loop
         __asm volatile ("nop");
-        LPC_GPIO0->FIOSET |= (1 << 9);     // Make all the Port pins as high
+       LPC_GPIO0->FIOSET = (1 << 22);   // Make all the Port pins as high
                 delay_ms(100);
 
-                LPC_GPIO0->FIOCLR |= (1 <<9);     // Make all the Port pins as low
+               LPC_GPIO0->FIOCLR = (1 << 22);    // Make all the Port pins as low
                 delay_ms(100);
 
     }
