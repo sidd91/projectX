@@ -7,19 +7,18 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "/home/sidchawla/Work/projectX/bazel-bin/firmware/example/lpc1769/blinky_led",
+            "executable": "${workspaceFolder}/bazel-bin/firmware/example/lpc1769/blinky_led",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
             "svdFile": "${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd",
             "configFiles": [
-                "${workspaceFolder}/openocd/lpc1769/cmsis-dap.cfg",
-                "${workspaceFolder}/openocd/lpc1769/lpc17xx.cfg",
+                "${workspaceFolder}/infrastructure/openocd/lpc1769/cmsis-dap.cfg",
+                "${workspaceFolder}/infrastructure/openocd/lpc1769/lpc17xx.cfg",
             ],
-            //TODO: Make the tool hermetic
-            "gdbPath": "/home/sidchawla/Downloads/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb", 
-            "postLaunchCommands": ["file /home/sidchawla/Work/projectX/bazel-bin/firmware/example/lpc1769/blinky_led", "load", "monitor reset halt"],
+            "gdbPath": "${workspaceFolder}/bazel-projectX/external/arm-none-eabi/bin/arm-none-eabi-gdb", 
+            // "postLaunchCommands": ["file ${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd", "load", "monitor reset halt"],
         }
     ]
 }

@@ -41,3 +41,9 @@ We will use a docker approach to ensure that our setup remains platform agnostic
     ![](infrastructure/markdown_artifacts/open_folder_in_container.png)
 
     After this step, the container will build. If you start a terminal in vscode, then you will see the bash user as `root@xxxx`. You can now change your directory to the firmware directory by going to File-> Open Folder. 
+
+
+### Running the example
+`bazel build //firmware/example/lpc1769:bin1 --config=lpc1769-platform`
+
+This will build the blinky example and generate the required output files.
