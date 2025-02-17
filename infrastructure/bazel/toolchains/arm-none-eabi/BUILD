@@ -30,8 +30,9 @@ cc_toolchain(
     compiler_files = ":all_files",
     dwp_files = ":empty",
     linker_files = ":all_files",
-    objcopy_files = ":empty",
-    strip_files = ":empty",
+    objcopy_files = ":all_files",
+    strip_files = ":all_files",
+    as_files = ":all_files",
 )
 
 cc_toolchain_suite(

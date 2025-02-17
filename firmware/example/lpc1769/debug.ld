@@ -1,37 +1,16 @@
 /*
  * GENERATED FILE - DO NOT EDIT
- * Copyright (c) 2008-2013 Code Red Technologies Ltd,
- * Copyright 2015, 2018-2019 NXP
- * (c) NXP Semiconductors 2013-2020
+ * Copyright 2008-2013 Code Red Technologies Ltd,
+ * Copyright 2013-2024 NXP
+ * SPDX-License-Identifier: BSD-3-Clause
  * Generated linker script file for LPC1768
  * Created from linkscript.ldt by FMCreateLinkLibraries
- * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on Dec 22, 2020 10:04:45 PM
+ * Using Freemarker v2.3.30
+ * MCUXpresso IDE v24.9 [Build 25] [2024-09-26] on Dec 9, 2024, 1:10:46 AM
  */
 
-GROUP ("libgcc.a")
-
-MEMORY
-{
-  /* Define each memory region */
-  MFlash512 (rx) : ORIGIN = 0x0, LENGTH = 0x80000 /* 512K bytes (alias Flash) */  
-  RamLoc32 (rwx) : ORIGIN = 0x10000000, LENGTH = 0x8000 /* 32K bytes (alias RAM) */  
-  RamAHB32 (rwx) : ORIGIN = 0x2007c000, LENGTH = 0x8000 /* 32K bytes (alias RAM2) */  
-}
-
-  /* Define a symbol for the top of each memory region */
-  __base_MFlash512 = 0x0  ; /* MFlash512 */
-  __base_Flash = 0x0 ; /* Flash */
-  __top_MFlash512 = 0x0 + 0x80000 ; /* 512K bytes */
-  __top_Flash = 0x0 + 0x80000 ; /* 512K bytes */
-  __base_RamLoc32 = 0x10000000  ; /* RamLoc32 */
-  __base_RAM = 0x10000000 ; /* RAM */
-  __top_RamLoc32 = 0x10000000 + 0x8000 ; /* 32K bytes */
-  __top_RAM = 0x10000000 + 0x8000 ; /* 32K bytes */
-  __base_RamAHB32 = 0x2007c000  ; /* RamAHB32 */
-  __base_RAM2 = 0x2007c000 ; /* RAM2 */
-  __top_RamAHB32 = 0x2007c000 + 0x8000 ; /* 32K bytes */
-  __top_RAM2 = 0x2007c000 + 0x8000 ; /* 32K bytes */
+INCLUDE "LPCX176x_cmsis2_led_blinky_Debug_library.ld"
+INCLUDE "LPCX176x_cmsis2_led_blinky_Debug_memory.ld"
 
 ENTRY(ResetISR)
 
@@ -66,18 +45,12 @@ SECTIONS
         *(.after_vectors*)
 
         /* Code Read Protection data */
-        /*
         . = 0x000002FC ;
         PROVIDE(__CRP_WORD_START__ = .) ;
         KEEP(*(.crp))
         PROVIDE(__CRP_WORD_END__ = .) ;
         ASSERT(!(__CRP_WORD_START__ == __CRP_WORD_END__), "Linker CRP Enabled, but no CRP_WORD provided within application");
-        */
         /* End of Code Read Protection */
-    } > MFlash512
-
-    .text : ALIGN(4)
-    {
        *(.text*)
        *(.rodata .rodata.* .constdata .constdata.*)
        . = ALIGN(4);
@@ -147,7 +120,7 @@ SECTIONS
     } > RamLoc32 AT>MFlash512
 
     /* BSS section for RamAHB32 */
-    .bss_RAM2 : ALIGN(4)
+    .bss_RAM2 (NOLOAD) : ALIGN(4)
     {
        PROVIDE(__start_bss_RAM2 = .) ;
        PROVIDE(__start_bss_RamAHB32 = .) ;
@@ -161,7 +134,7 @@ SECTIONS
     } > RamAHB32 AT> RamAHB32
 
     /* MAIN BSS SECTION */
-    .bss : ALIGN(4)
+    .bss (NOLOAD) : ALIGN(4)
     {
         _bss = .;
         PROVIDE(__start_bss_RAM = .) ;
@@ -201,7 +174,9 @@ SECTIONS
        PROVIDE(__end_noinit_RAM = .) ;
        PROVIDE(__end_noinit_RamLoc32 = .) ;        
     } > RamLoc32 AT> RamLoc32
+
     PROVIDE(_pvHeapStart = DEFINED(__user_heap_base) ? __user_heap_base : .);
+
     PROVIDE(_vStackTop = DEFINED(__user_stack_top) ? __user_stack_top : __top_RamLoc32 - 0);
 
     /* ## Create checksum value (used in startup) ## */

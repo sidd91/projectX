@@ -1,0 +1,9 @@
+#!/bin/bash
+ 
+NAME=$(basename "$0")
+echo "**************************************Executing ${NAME} with arguments: $@"
+# TOOLCHAIN_BINDIR=bazel-projectX/external/arm-none-eabi/bin
+
+
+# exec "${TOOLCHAIN_BINDIR}"/"${NAME}" "$@"
+exec /usr/bin/arm-none-eabi-objcopy

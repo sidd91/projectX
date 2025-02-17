@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/bazel-bin/firmware/example/lpc1769/blinky_led",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "openocd",
+            "svdFile": "${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd",
+            "configFiles": [
+                "${workspaceFolder}/infrastructure/openocd/lpc1769/cmsis-dap.cfg",
+                "${workspaceFolder}/infrastructure/openocd/lpc1769/lpc17xx.cfg",
+            ],
+            "gdbPath": "${workspaceFolder}/bazel-projectX/external/arm-none-eabi/bin/arm-none-eabi-gdb", 
+            // "postLaunchCommands": ["file ${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd", "load", "monitor reset halt"],
+        }
+    ]
+}

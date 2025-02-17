@@ -26,39 +26,44 @@ all_compile_actions = [
     ACTION_NAMES.preprocess_assemble,
 ]
 
+# why the tools needs to be named as below: https://github.com/bazelbuild/bazel/blob/8a28ea5f95ec518355912710cf42e01e5f685e4e/src/main/starlark/builtins_bzl/common/cc/cc_toolchain_provider_helper.bzl#L274
 def _impl(ctx):
     tool_paths = [
         tool_path(
             name = "ar",
-            path = "/usr/bin/arm-none-eabi-ar",
+            path = "wrappers/arm-none-eabi-ar",
         ),
         tool_path(
             name = "cpp",
-            path = "/usr/bin/arm-none-eabi-cpp",
+            path = "wrappers/arm-none-eabi-cpp",
         ),
         tool_path(
             name = "gcc",
-            path = "/usr/bin/arm-none-eabi-gcc",
+            path = "wrappers/arm-none-eabi-gcc",
         ),
         tool_path(
             name = "gcov",
-            path = "/usr/bin/arm-none-eabi-gcov",
+            path = "wrappers/arm-none-eabi-gcov",
         ),
         tool_path(
             name = "ld",
-            path = "/usr/bin/arm-none-eabi-ld",
+            path = "wrappers/arm-none-eabi-ld",
         ),
         tool_path(
             name = "nm",
-            path = "/usr/bin/arm-none-eabi-nm",
+            path = "wrappers/arm-none-eabi-nm",
         ),
         tool_path(
             name = "objdump",
-            path = "/usr/bin/arm-none-eabi-objdump",
+            path = "wrappers/arm-none-eabi-objdump",
         ),
         tool_path(
             name = "strip",
-            path = "/usr/bin/arm-none-eabi-strip",
+            path = "wrappers/arm-none-eabi-strip",
+        ),
+        tool_path(
+            name = "objcopy", 
+            path = "/usr/bin/arm-none-eabi-objcopy",
         ),
     ]
 
@@ -76,6 +81,7 @@ def _impl(ctx):
                             "-mno-thumb-interwork",
                             "-DCORE_M3",
                             "-fno-exceptions",
+                            "-no-canonical-prefixes",
                         ],
                     ),
                 ],
@@ -92,10 +98,8 @@ def _impl(ctx):
                 flag_groups = ([
                     flag_group(
                         flags = [
-                            # "-lstdc++",
                             "-specs=nosys.specs",
-                            # "-specs=nosys.specs",
-                            # "-specs=rdimon.specs",
+                            "-specs=rdimon.specs",
                             "-lrdimon",
                             "-nostdlib",
                             "-lnosys",
@@ -144,9 +148,7 @@ def _impl(ctx):
         abi_version = "unknown",
         abi_libc_version = "unknown",
         tool_paths = tool_paths,
-        cxx_builtin_include_directories = [
-            "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h",
-        ],
+        cxx_builtin_include_directories = [],
     )
 
 cc_toolchain_config = rule(

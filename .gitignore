@@ -2,3 +2,8 @@ bazel-bin*
 bazel-out*
 bazel-projectX*
 bazel-testlogs*
+.codegpt
+MODULE.bazel.lock
+*.elf
+*.bin
+*.hex
