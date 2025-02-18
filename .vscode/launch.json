@@ -7,18 +7,19 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/bazel-bin/firmware/example/lpc1769/blinky_led",
+            "executable": "${workspaceFolder}/bazel-bin/firmware/example/lpc1769/lpc1769_blinky.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
             "svdFile": "${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd",
+            "openOCDLaunchCommands": ["adapter speed 5000"],
             "configFiles": [
                 "${workspaceFolder}/infrastructure/openocd/lpc1769/cmsis-dap.cfg",
                 "${workspaceFolder}/infrastructure/openocd/lpc1769/lpc17xx.cfg",
             ],
             "gdbPath": "${workspaceFolder}/bazel-projectX/external/arm-none-eabi/bin/arm-none-eabi-gdb", 
-            // "postLaunchCommands": ["file ${workspaceFolder}/third_party/nxp/lpc1769/artifacts/LPC176x5x.svd", "load", "monitor reset halt"],
+            "postLaunchCommands": ["file ${workspaceFolder}/bazel-bin/firmware/example/lpc1769/lpc1769_blinky.elf", "load", "monitor reset halt"],
         }
     ]
 }

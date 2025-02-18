@@ -17,9 +17,9 @@
 //
 // The software is owned by Code Red Technologies and/or its suppliers, and is
 // protected under applicable copyright laws.  All rights are reserved.  Any
-// use in violation of the foregoing restrictions may subject the user to criminal
-// sanctions under applicable laws, as well as to civil liability for the breach
-// of the terms and conditions of this license.
+// use in violation of the foregoing restrictions may subject the user to
+// criminal sanctions under applicable laws, as well as to civil liability for
+// the breach of the terms and conditions of this license.
 //
 // THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
 // OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
@@ -39,39 +39,46 @@
 // See crp.h header for more information
 // __CRP const unsigned int CRP_WORD = CRP_NO_CRP ;
 
-void delay_ms(unsigned int ms)
-{
-    unsigned int i,j;
+volatile uint32_t msTicks; // counter for 1ms SysTicks
 
-    for(i=0;i<ms;i++)
-        for(j=0;j<20000;j++);
+void SysTick_Handler(void) { msTicks++; }
+
+// ****************
+// systick_delay - creates a delay of the appropriate number of Systicks
+// (happens every 1 ms)
+__INLINE static void systick_delay(uint32_t delayTicks) {
+  uint32_t currentTicks;
+
+  currentTicks = msTicks; // read current tick counter
+  // Now loop until required number of ticks passes.
+  while ((msTicks - currentTicks) < delayTicks)
+    ;
 }
 
 int main(void) {
 
- 	SystemInit();
-		// Set P0_22 to 00 - GPIO
-	LPC_PINCON->PINSEL1	&= (~(3 << 12));
-	// Set GPIO - P0_22 - to be output
-	LPC_GPIO0->FIODIR |= (1 << 22);
-	// LPC_GPIO3->FIODIR = 0xffffffff;
-	// LPC_GPIO3->FIOSET = 0xffffffff;
-	//Add code for GPIO toggling here
+  SystemInit();
+  // Set P0_22 to 00 - GPIO
+  LPC_PINCON->PINSEL1 &= (~(3 << 12));
+  // Set GPIO - P0_22 - to be output
+  LPC_GPIO0->FIODIR |= (1 << 22);
 
-    // Force the counter to be placed into memory
-    volatile static int i = 0 ;
-    // Enter an infinite loop, just incrementing a counter
-    while(1) {
-        i++ ;
-        // "Dummy" NOP to allow source level single
-        // stepping of tight while() loop
-        __asm volatile ("nop");
-       LPC_GPIO0->FIOSET = (1 << 22);   // Make all the Port pins as high
-                delay_ms(100);
+  if (SysTick_Config(SystemCoreClock / 1000)) { 
+	    while (1);  // Capture error
+	}
 
-               LPC_GPIO0->FIOCLR = (1 << 22);    // Make all the Port pins as low
-                delay_ms(100);
-
-    }
-    return 0 ;
+  // Force the counter to be placed into memory
+  volatile static int i = 0;
+  // Enter an infinite loop, just incrementing a counter
+  while (1) {
+    i++;
+    // "Dummy" NOP to allow source level single
+    // stepping of tight while() loop
+    __asm volatile("nop");
+    LPC_GPIO0->FIOSET = (1 << 22); // Make all the Port pins as high
+    systick_delay(500);
+    LPC_GPIO0->FIOCLR = (1 << 22); // Make all the Port pins as low
+    systick_delay(500);
+  }
+  return 0;
 }
