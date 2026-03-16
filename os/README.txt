@@ -1,0 +1,1 @@
+copy pasta of nxp example. It is already configured. I didnt do anything.

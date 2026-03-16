@@ -28,3 +28,18 @@ cc_binary(
     ],
     deps = ["//third_party/nxp/lpc1769:lpc17xx"],
 )
+
+genrule(
+    name = "hex",
+    srcs = [":elf"],
+    outs = ["example.hex"],
+    cmd = "$(execpath @arm_none_eabi//:objcopy) -O ihex $< $@",
+    tools = ["@arm_none_eabi//:objcopy"],
+)
+
+genrule(
+    name = "elf",
+    srcs = [":example_c++"],
+    outs = ["example.elf"],
+    cmd = "cp $< $@",
+)

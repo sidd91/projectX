@@ -7,7 +7,7 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/bazel-bin/firmware/example/lpc1769/lpc1769_blinky.elf",
+            "executable": "${workspaceFolder}/bazel-bin/example/freertos_blinky/example/example.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
@@ -18,8 +18,11 @@
                 "${workspaceFolder}/infrastructure/openocd/lpc1769/cmsis-dap.cfg",
                 "${workspaceFolder}/infrastructure/openocd/lpc1769/lpc17xx.cfg",
             ],
-            "gdbPath": "${workspaceFolder}/bazel-projectX/external/arm-none-eabi/bin/arm-none-eabi-gdb", 
-            "postLaunchCommands": ["file ${workspaceFolder}/bazel-bin/firmware/example/lpc1769/lpc1769_blinky.elf", "load", "monitor reset halt"],
+            "gdbPath": "${workspaceFolder}/bazel-out/darwin_arm64-fastbuild/bin/external/toolchains_arm_gnu~1.0.2~arm_toolchain~arm_none_eabi/gdb", 
+            "nmPath": "${workspaceFolder}/bazel-out/darwin_arm64-fastbuild/bin/external/toolchains_arm_gnu~1.0.2~arm_toolchain~arm_none_eabi/nm",
+            "objdumpPath": "${workspaceFolder}/bazel-out/darwin_arm64-fastbuild/bin/external/toolchains_arm_gnu~1.0.2~arm_toolchain~arm_none_eabi/objdump",
+            // "armToolchainPath": "bazel-out/darwin_arm64-fastbuild/bin/external/toolchains_arm_gnu~1.0.2~arm_toolchain~arm_none_eabi",
+            "postLaunchCommands": ["load", "monitor reset halt"],
         }
     ]
 }

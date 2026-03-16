@@ -1,10 +1,12 @@
-"""Module extension for registering ARM toolchains."""
+# USE HEXDAE toolchain till we can
 
-def _toolchain_impl(module_ctx):
-    """Register ARM toolchains based on exec platform."""
-    # Register the toolchains - they will be selected by Bazel based on constraints
-    pass
+# """Module extension for registering ARM toolchains."""
 
-toolchain_extension = module_extension(
-    implementation = _toolchain_impl,
-)
+# def _toolchain_impl(module_ctx):
+#     """Register ARM toolchains based on exec platform."""
+#     # Register the toolchains - they will be selected by Bazel based on constraints
+#     pass
+
+# toolchain_extension = module_extension(
+#     implementation = _toolchain_impl,
+# )

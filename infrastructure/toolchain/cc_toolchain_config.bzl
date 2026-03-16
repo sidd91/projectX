@@ -7,6 +7,7 @@ load(
     "flag_set",
     "tool_path",
 )
+load("@bazel_tools//tools/cpp:cc_common.bzl", "cc_common")
 
 all_link_actions = [
     ACTION_NAMES.cpp_link_executable,

@@ -1,0 +1,10 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "resolve-gdb-path",
+            "type": "shell",
+            "command": "echo GDB=$(bazel cquery --output=files @arm_none_eabi//:gdb) >> .vscode/.env"
+        }
+    ]
+}
