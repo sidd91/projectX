@@ -4,12 +4,22 @@
 
 extern char _pvHeapStart; // from linker script
 
+extern char _pvHeapStart;
+extern char _vStackTop;
+
 caddr_t _sbrk(int incr) {
     static char *heap_end = NULL;
     if (heap_end == NULL) heap_end = &_pvHeapStart;
+
     char *prev_heap_end = heap_end;
+
+    if (heap_end + incr > &_vStackTop) {
+        errno = ENOMEM;
+        return (caddr_t) -1;  // malloc returns NULL, xTaskCreate fails cleanly
+    }
+
     heap_end += incr;
-    return (caddr_t)prev_heap_end;
+    return (caddr_t) prev_heap_end;
 }
 
 int _getpid(void) { return 1; }

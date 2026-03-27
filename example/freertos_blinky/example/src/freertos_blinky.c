@@ -124,25 +124,25 @@ int main(void)
 
 	/* LED1 toggle thread */
 	signed portBASE_TYPE xResult;
-	volatile size_t freeHeap = xPortGetFreeHeapSize();
+	// volatile size_t freeHeap = xPortGetFreeHeapSize();
 
 	xResult = xTaskCreate(vLEDTask1, (signed char *)"vTaskLed1",
 						  configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
 						  (xTaskHandle *)NULL);
-	freeHeap = xPortGetFreeHeapSize();
+	// freeHeap = xPortGetFreeHeapSize();
 
 	/* LED2 toggle thread */
 	xResult = xTaskCreate(vLEDTask2, (signed char *)"vTaskLed2",
 						  configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
 						  (xTaskHandle *)NULL);
-	freeHeap = xPortGetFreeHeapSize();
+	// freeHeap = xPortGetFreeHeapSize();
 
-	/* UART output thread, simply counts seconds */
-	xResult = xTaskCreate(vUARTTask, (signed char *)"vTaskUart",
-						  configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-						  (xTaskHandle *)NULL);
+	// /* UART output thread, simply counts seconds */
+	// xResult = xTaskCreate(vUARTTask, (signed char *)"vTaskUart",
+	// 					  configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
+	// 					  (xTaskHandle *)NULL);
 
-	freeHeap = xPortGetFreeHeapSize();
+	// freeHeap = xPortGetFreeHeapSize();
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

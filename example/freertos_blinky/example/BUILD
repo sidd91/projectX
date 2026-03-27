@@ -20,7 +20,9 @@ cc_binary(
         "-nostdlib",
         "-lc",
         "-lgcc",
-        "-specs=nano.specs",
+        "-lrdimon",
+        # "-specs=rdimon.specs",
+        # "-specs=nosys.specs",
         "-Wl,--gc-sections",
         "-Wl,-T$(location {})".format(linker_script),
     ],
@@ -30,7 +32,7 @@ cc_binary(
     ],
     deps = [
         "//os/freertos:freertos_lpc1769",
-        "//third_party/nxp/lpc1769:lpc17xx",
+        # "//third_party/nxp/lpc1769:lpc17xx",
     ],
 )
 

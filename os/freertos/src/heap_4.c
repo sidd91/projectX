@@ -90,8 +90,10 @@
 
 /* The application writer has already defined the array used for the RTOS
  * heap - probably so it can be placed in a special segment or address. */
+
     extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 #else
+    __attribute__((section(".bss.$RAM2")))
     PRIVILEGED_DATA static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 #endif /* configAPPLICATION_ALLOCATED_HEAP */
 
@@ -193,6 +195,8 @@ void * pvPortMalloc( size_t xWantedSize )
 
             /* Ensure that blocks are always aligned to the required number
              * of bytes. */
+            volatile size_t xAlignmentMask = ( size_t ) portBYTE_ALIGNMENT;
+            volatile size_t wanted = xWantedSize & portBYTE_ALIGNMENT_MASK;
             if( ( xWantedSize & portBYTE_ALIGNMENT_MASK ) != 0x00 )
             {
                 /* Byte alignment required. */
@@ -623,13 +627,13 @@ static void prvInsertBlockIntoFreeList( BlockLink_t * pxBlockToInsert ) /* PRIVI
 //     }
 //     taskEXIT_CRITICAL();
 // }
-// /*-----------------------------------------------------------*/
+// // /*-----------------------------------------------------------*/
 
-// /*
-//  * Reset the state in this file. This state is normally initialized at start up.
-//  * This function must be called by the application before restarting the
-//  * scheduler.
-//  */
+// // /*
+// //  * Reset the state in this file. This state is normally initialized at start up.
+// //  * This function must be called by the application before restarting the
+// //  * scheduler.
+// //  */
 // void vPortHeapResetState( void )
 // {
 //     pxEnd = NULL;
